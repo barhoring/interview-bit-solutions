@@ -5,40 +5,38 @@ class Solution:
         a = A
         dict = {}
         size = len(A)
-        for i in range(0, size):
-            for j in range(i+1, size):
-                n1 = a[i]
+        for i in range(0, size-3):
+            n1 = a[i]
+            for j in range(i+1, size-2):
                 n2 = a[j]
-                #if n1 == n2:
-                    #continue
-                tmp1 = n2 - n1
-                tmp2 = -1*tmp1
-                if tmp1 in dict and i in dict[tmp1]:
-                    continue
-                if tmp2 in dict:
-                    if i not in dict[tmp2] and j not in dict[tmp2]:
-                    #if i not in dict[tmp2]:
-                        tmp3 = dict[tmp2]
-                        if tmp3[0] < i and tmp3[0] < j:
-                            #return dict[tmp2] + [i, j]
-                            result = tmp3 + [i,j]
-                            return sorted(result)
-                            #return [tmp3[0]] + [i,j] + [tmp3[1]]
-                    else:
-                        continue
-                elif tmp1 not in dict:
-                    dict[tmp1] = [i, j]
-                #dict[tmp1] = [i, j]
+                sum1 = n1 + n2
+                if sum1 in dict:
+                    result = dict[sum1] + [i, j]
+                    return sorted(result)
+                else:
+                    dict[sum1] = [i, j]
+                for k in range(j+1, size-1):
+                    n3 = a[k]
+                    for m in range(k+1, size):
+                        n4 = a[m]
+                        sum2 = n3 + n4
+                        if sum2 in dict:
+                            if k not in dict[sum2]:
+                                result = dict[sum2] + [k, m]
+                                return sorted(result)
+                        #else:
+                            #dict[sum2] = [k, m]
         return []
 
 
 if __name__ == "__main__":
     # execute only if run as a script
     sol = Solution()
-    A = [3,4,7,1,32,9,71]
+    #A = [3,4,7,1,32,9,71]
     #A = [ 0, 2, 1, 1, 1, 1, 0 ]
     #A = [1, 1,1,1 ,1]
-    A = [ 9, 5, 4, 9, 3, 6, 8, 7, 1, 2, 8, 7, 2, 9, 7, 1, 3, 9, 7, 8, 1, 0, 5, 5 ]
+    #A = [ 9, 5, 4, 9, 3, 6, 8, 7, 1, 2, 8, 7, 2, 9, 7, 1, 3, 9, 7, 8, 1, 0, 5, 5 ]
+    A = [ 0, 0, 1, 0, 2, 1 ]
     print(A)
     a = sol.equal(A)
     print(a)
